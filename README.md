@@ -1,6 +1,16 @@
 # Idle
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.8.
+Demonstration of use of @ng-idle/core.
+
+Idle in 10 seconds
+Timeout in 10 seconds
+Demo restart in 10 seconds
+
+- Shows
+  - Not Idle
+  - Idle
+  - Timeout
+  - Visible countdown when 5 seconds are remaining before timeout
 
 ## Development server
 
