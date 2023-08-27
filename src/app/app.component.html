@@ -3,16 +3,16 @@
 <br/>
 <table>
   <tr>
-    <td>Idel after:</td>
-    <td>{{ idleAfterSeconds}} seconds</td>
+    <td>Idle after:</td>
+    <td><input type="number" min="2" max="2400" [(ngModel)]="idleAfterSeconds"/> seconds</td>
   </tr>
   <tr>
     <td>Timeout after:</td>
-    <td>{{ timeoutAfterSeconds }} seconds</td>
+    <td><input type="number" min="6" max="2400" [(ngModel)]="timeoutAfterSeconds"/> seconds</td>
   </tr>
   <tr>
     <td>Demo restart after:</td>
-    <td>{{ demoRestartAfterSeconds}} seconds</td>
+    <td><input type="number" min="10" max="2400" [(ngModel)]="demoRestartAfterSeconds"/> seconds</td>
   </tr>
   <tr>
     <td>State:</td>
@@ -23,7 +23,7 @@
     <td>{{ countdown }}</td>
   </tr>
   <tr >
-    <td>Visible Countdown:</td>
+    <td>Timeout Warning Countdown:</td>
     <td ><span *ngIf="countdown && countdown <= 5">{{ countdown }}</span></td>
   </tr>
 </table>

@@ -15,6 +15,12 @@ export class AppComponent {
   idleState = 'Not idle';
   countdown?: number | undefined;
   constructor(private idle: Idle, private changeDetectorRef: ChangeDetectorRef) {
+    this.watch();
+  }
+
+  watch() {
+    this.idleState = 'Not idle';
+
     this.idle.setIdle(this.idleAfterSeconds); // 10 seconds of inactivity starts the countdown
     this.idle.setTimeout(this.timeoutAfterSeconds); // how long can they be idle before considered Timed out, in seconds
     this.idle.setInterrupts([new DocumentInterruptSource('keydown DOMMouseScroll mousewheel mousedown touchstart touchmove scroll')]);
@@ -28,15 +34,15 @@ export class AppComponent {
     this.idle.onIdleEnd.subscribe(() => {
       this.idleState = "Not idle";
       this.countdown = undefined;
-      changeDetectorRef.detectChanges();
+      this.changeDetectorRef.detectChanges();
     });
 
     // do something when the user has Timed out
     this.idle.onTimeout.subscribe(() => {
-      this.idleState = "Timed out (will start demo in 10 seconds again)";
+      this.idleState = `Timed out (will restart demo in ${this.demoRestartAfterSeconds} seconds again)`;
       this.countdown = undefined;
       setTimeout(() => {
-        this.idle.watch();
+        this.watch();
       }, (this.demoRestartAfterSeconds * 1000))
     });
     // do something as the timeout countdown does its thing
@@ -44,11 +50,6 @@ export class AppComponent {
       this.countdown = seconds
     });
 
-    this.watch();
-  }
-
-  watch() {
-    this.idleState = 'Not idle';
     this.idle.watch();
   }
 }
