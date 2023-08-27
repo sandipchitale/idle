@@ -7,8 +7,10 @@ table {
 td:nth-child(1) {
   font-weight: bold;
   width: 200px;
+  text-align: right;
 }
 
 td {
   padding: 10px;
+  border: 1px dotted gray;
 }
