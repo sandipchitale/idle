@@ -8,12 +8,15 @@ import {Idle, DocumentInterruptSource} from '@ng-idle/core';
 })
 export class AppComponent {
 
+  idleAfterSeconds = 10;
+  timeoutAfterSeconds = 10;
+  demoRestartAfterSeconds = 10;
+
   idleState = 'Not idle';
   countdown?: number | undefined;
   constructor(private idle: Idle, private changeDetectorRef: ChangeDetectorRef) {
-
-    this.idle.setIdle(10); // 10 seconds of inactivity starts the countdown
-    this.idle.setTimeout(10); // how long can they be idle before considered Timed out, in seconds
+    this.idle.setIdle(this.idleAfterSeconds); // 10 seconds of inactivity starts the countdown
+    this.idle.setTimeout(this.timeoutAfterSeconds); // how long can they be idle before considered Timed out, in seconds
     this.idle.setInterrupts([new DocumentInterruptSource('keydown DOMMouseScroll mousewheel mousedown touchstart touchmove scroll')]);
 
     // do something when the user becomes idle
@@ -34,7 +37,7 @@ export class AppComponent {
       this.countdown = undefined;
       setTimeout(() => {
         this.idle.watch();
-      }, 10000)
+      }, (this.demoRestartAfterSeconds * 1000))
     });
     // do something as the timeout countdown does its thing
     this.idle.onTimeoutWarning.subscribe(seconds => {
@@ -46,7 +49,6 @@ export class AppComponent {
 
   watch() {
     this.idleState = 'Not idle';
-
     this.idle.watch();
   }
 }

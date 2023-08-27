@@ -4,26 +4,26 @@
 <table>
   <tr>
     <td>Idel after:</td>
-    <td>10 seconds</td>
+    <td>{{ idleAfterSeconds}} seconds</td>
   </tr>
   <tr>
     <td>Timeout after:</td>
-    <td>10 seconds</td>
+    <td>{{ timeoutAfterSeconds }} seconds</td>
   </tr>
   <tr>
     <td>Demo restart after:</td>
-    <td>10 seconds</td>
+    <td>{{ demoRestartAfterSeconds}} seconds</td>
   </tr>
   <tr>
     <td>State:</td>
     <td>{{ idleState }}</td>
   </tr>
   <tr>
-    <td>Current Countdown:</td>
+    <td>Countdown:</td>
     <td>{{ countdown }}</td>
   </tr>
-  <tr *ngIf="countdown && countdown <= 5">
+  <tr >
     <td>Visible Countdown:</td>
-    <td>{{ countdown }}</td>
+    <td ><span *ngIf="countdown && countdown <= 5">{{ countdown }}</span></td>
   </tr>
 </table>
