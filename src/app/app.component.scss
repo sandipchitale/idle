@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px dotted gray;
+}
+
+td:nth-child(1) {
+  font-weight: bold;
+  width: 200px;
+}
+
+td {
+  padding: 10px;
+}
