@@ -8,9 +8,8 @@ import {Idle, DocumentInterruptSource} from '@ng-idle/core';
 })
 export class AppComponent {
 
-  idleAfterSeconds = 10;
+  idleAfterSeconds = 5;
   timeoutAfterSeconds = 10;
-  demoRestartAfterSeconds = 10;
 
   idleState = 'Not idle';
   countdown?: number | undefined;
@@ -19,6 +18,8 @@ export class AppComponent {
   }
 
   watch() {
+    this.idle.stop();
+
     this.idleState = 'Not idle';
 
     this.idle.setIdle(this.idleAfterSeconds); // 10 seconds of inactivity starts the countdown
@@ -39,11 +40,8 @@ export class AppComponent {
 
     // do something when the user has Timed out
     this.idle.onTimeout.subscribe(() => {
-      this.idleState = `Timed out (will restart demo in ${this.demoRestartAfterSeconds} seconds again)`;
+      this.idleState = `Timed out (Click Restart demo)`;
       this.countdown = undefined;
-      setTimeout(() => {
-        this.watch();
-      }, (this.demoRestartAfterSeconds * 1000))
     });
     // do something as the timeout countdown does its thing
     this.idle.onTimeoutWarning.subscribe(seconds => {

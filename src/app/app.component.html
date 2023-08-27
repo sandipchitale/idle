@@ -1,5 +1,6 @@
 <div class="text-center">
   <h1>@ng-idle/code demo</h1>
+  <button (click)="watch()">Restart demo</button>
 </div>
 <br/>
 <br/>
@@ -11,10 +12,6 @@
   <tr>
     <td>Timeout after:</td>
     <td><input type="number" min="6" max="2400" [(ngModel)]="timeoutAfterSeconds"/> seconds</td>
-  </tr>
-  <tr>
-    <td>Demo restart after:</td>
-    <td><input type="number" min="10" max="2400" [(ngModel)]="demoRestartAfterSeconds"/> seconds</td>
   </tr>
   <tr>
     <td>State:</td>
