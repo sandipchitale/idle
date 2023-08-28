@@ -12,7 +12,7 @@ Demo restart in 10 seconds
   - Timeout
   - Visible countdown when 5 seconds are remaining before timeout
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sandipchitale/idle)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/sandipchitale/idle)
 
 ## Development server
 
