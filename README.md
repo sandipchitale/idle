@@ -12,6 +12,8 @@ Demo restart in 10 seconds
   - Timeout
   - Visible countdown when 5 seconds are remaining before timeout
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sandipchitale/idle)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
