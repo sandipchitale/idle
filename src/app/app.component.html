@@ -1,28 +1,49 @@
-<div class="text-center">
-  <h1>@ng-idle/code demo</h1>
-  <button (click)="watch()">Restart demo</button>
+<div class="wrapper">
+  <p-toolbar>
+    <div class="p-toolbar-group-left" style="flex: 1 1 auto">
+        <b>@ng-idle/core demo</b>
+    </div>
+    <div class="p-toolbar-group-right" style="flex: 0 0 auto">
+      <button pButton class="ml-2" (click)="watch()">Restart demo</button>
+      <p-toggleButton
+        [(ngModel)]="lightTheme"
+        [onIcon]="'pi pi-sun'"
+        [offIcon]="'pi pi-moon'"
+        class="ml-2"
+        (onChange)="adjustTheme($event)">
+      </p-toggleButton>
+    </div>
+  </p-toolbar>
+  <main>
+    <table>
+      <tr>
+        <td>Idle after:</td>
+        <td><input pInputText type="number" min="2" max="2400" [(ngModel)]="idleAfterSeconds"/> seconds</td>
+      </tr>
+      <tr>
+        <td>State:</td>
+        <td>{{ idleState }}</td>
+      </tr>
+      <tr>
+        <td>Timeout after:</td>
+        <td><input pInputText type="number" min="6" max="2400" [(ngModel)]="timeoutAfterSeconds"/> seconds</td>
+      </tr>
+      <tr>
+        <td>Countdown to timeout:</td>
+        <td>{{ countdown }}</td>
+      </tr>
+      <tr>
+        <td>Timeout warning seconds:</td>
+        <td><input pInputText type="number" min="6" max="2400" [(ngModel)]="timeoutWarningSeconds"/> seconds</td>
+      </tr>
+    </table>
+  </main>
 </div>
-<br/>
-<br/>
-<table>
-  <tr>
-    <td>Idle after:</td>
-    <td><input type="number" min="2" max="2400" [(ngModel)]="idleAfterSeconds"/> seconds</td>
-  </tr>
-  <tr>
-    <td>Timeout after:</td>
-    <td><input type="number" min="6" max="2400" [(ngModel)]="timeoutAfterSeconds"/> seconds</td>
-  </tr>
-  <tr>
-    <td>State:</td>
-    <td>{{ idleState }}</td>
-  </tr>
-  <tr>
-    <td>Countdown:</td>
-    <td>{{ countdown }}</td>
-  </tr>
-  <tr >
-    <td>Timeout Warning Countdown:</td>
-    <td ><span *ngIf="countdown && countdown <= 5">{{ countdown }}</span></td>
-  </tr>
-</table>
+<p-dialog header="{{ timeoutWarningSeconds }} second Timeout Warning Countdown" [(visible)]="countdownDialogVisible">
+  <div class="text-center">
+    <b class="text-5xl">{{ countdown }}</b>
+  </div>
+</p-dialog>
+
+
+

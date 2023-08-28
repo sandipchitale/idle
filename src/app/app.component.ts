@@ -1,20 +1,50 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {Idle, DocumentInterruptSource} from '@ng-idle/core';
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
+  lightTheme = true;
 
   idleAfterSeconds = 5;
+  timeoutWarningSeconds = 5;
   timeoutAfterSeconds = 10;
 
+
   idleState = 'Not idle';
-  countdown?: number | undefined;
-  constructor(private idle: Idle, private changeDetectorRef: ChangeDetectorRef) {
+  _countdown?: number | undefined;
+
+  countdownDialogVisible = false;
+
+  constructor(private idle: Idle,
+              private changeDetectorRef: ChangeDetectorRef,
+              @Inject(DOCUMENT) private document: Document) {
     this.watch();
+  }
+
+  ngOnInit(): void {
+    //
+  }
+
+  ngAfterViewInit(): void {
+    this.adjustTheme();
+  }
+
+  adjustTheme(event?: any) {
+    let theme;
+    if (this.lightTheme) {
+      theme = 'light-theme';
+    } else {
+      theme = 'dark-theme';
+    }
+    const themeLink = this.document.getElementById('app-theme') as HTMLLinkElement;
+    if (themeLink) {
+      themeLink.href = theme + '.css';
+    }
   }
 
   watch() {
@@ -49,5 +79,14 @@ export class AppComponent {
     });
 
     this.idle.watch();
+  }
+
+  get countdown() {
+    return this._countdown;
+  }
+
+  set countdown(newCountdown: number | undefined) {
+    this._countdown = newCountdown;
+    this.countdownDialogVisible = (this._countdown != undefined && this._countdown <= this.timeoutWarningSeconds);
   }
 }
