@@ -21,16 +21,18 @@
         <td><input pInputText type="number" min="2" max="2400" [(ngModel)]="idleAfterSeconds"/> seconds</td>
       </tr>
       <tr>
-        <td>State:</td>
-        <td>{{ idleState }}</td>
+        <td class="text-2xl">State:</td>
+        <td [ngClass]="{'text-green-500': state === STATE.NOT_IDLE, 'text-orange-500': state === STATE.IDLE, 'text-red-500': state === STATE.TIMED_OUT, 'text-2xl': true}">
+          {{ idleState }}
+        </td>
       </tr>
       <tr>
         <td>Timeout after:</td>
         <td><input pInputText type="number" min="6" max="2400" [(ngModel)]="timeoutAfterSeconds"/> seconds</td>
       </tr>
       <tr>
-        <td>Countdown to timeout:</td>
-        <td>{{ countdown }}</td>
+        <td class="text-2xl">Countdown to timeout:</td>
+        <td class="text-orange-500 text-2xl">{{ countdown }}</td>
       </tr>
       <tr>
         <td>Timeout warning seconds:</td>
@@ -41,7 +43,7 @@
 </div>
 <p-dialog header="{{ timeoutWarningSeconds }} second Timeout Warning Countdown" [(visible)]="countdownDialogVisible">
   <div class="text-center">
-    <b class="text-5xl">{{ countdown }}</b>
+    <b class="text-orange-500 text-5xl">{{ countdown }}</b>
   </div>
 </p-dialog>
 

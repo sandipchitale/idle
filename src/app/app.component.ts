@@ -2,6 +2,12 @@ import {AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit} from '@angu
 import {Idle, DocumentInterruptSource} from '@ng-idle/core';
 import {DOCUMENT} from "@angular/common";
 
+enum STATE {
+  NOT_IDLE,
+  IDLE,
+  TIMED_OUT
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,6 +20,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   timeoutWarningSeconds = 5;
   timeoutAfterSeconds = 10;
 
+  state: STATE = STATE.NOT_IDLE;
 
   idleState = 'Not idle';
   _countdown?: number | undefined;
@@ -50,6 +57,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   watch() {
     this.idle.stop();
 
+    this.state = STATE.NOT_IDLE;
     this.idleState = 'Not idle';
 
     this.idle.setIdle(this.idleAfterSeconds); // 10 seconds of inactivity starts the countdown
@@ -58,11 +66,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     // do something when the user becomes idle
     this.idle.onIdleStart.subscribe(() => {
+      this.state = STATE.IDLE;
       this.idleState = "Idle";
     });
 
     // do something when the user is no longer idle
     this.idle.onIdleEnd.subscribe(() => {
+      this.state = STATE.NOT_IDLE;
       this.idleState = "Not idle";
       this.countdown = undefined;
       this.changeDetectorRef.detectChanges();
@@ -70,6 +80,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     // do something when the user has Timed out
     this.idle.onTimeout.subscribe(() => {
+      this.state = STATE.TIMED_OUT;
       this.idleState = `Timed out (Click Restart demo)`;
       this.countdown = undefined;
     });
@@ -89,4 +100,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this._countdown = newCountdown;
     this.countdownDialogVisible = (this._countdown != undefined && this._countdown <= this.timeoutWarningSeconds);
   }
+
+  protected readonly STATE = STATE;
 }
